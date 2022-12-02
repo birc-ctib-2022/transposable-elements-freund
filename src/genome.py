@@ -117,10 +117,7 @@ class ListGenome(Genome):
         Returns a new ID for the transposable element.
         """
 
-        if pos > len(self.genome):
-            raise ValueError("Position is out of range of genome.")
-
-        pos = pos % len(self.genome) # Circularize genome for copy function
+        pos = pos % len(self.genome) # Circularize genome
 
         active_tes = list(self.te_identities.items())
         for id, te_range in active_tes:
@@ -276,9 +273,6 @@ class LinkedListGenome(Genome):
         Returns a new ID for the transposable element.
         """
 
-        if pos > self.length:
-            raise ValueError("Position is out of range of genome.")
-
         active_tes = list(self.te_identities.items())
         for id, te_range in active_tes:
             start, end = te_range
@@ -340,7 +334,6 @@ class LinkedListGenome(Genome):
 
         copy_pos = start + offset
         return self.insert_te(copy_pos, copy_length)
-
 
 
     def disable_te(self, te: int) -> None:
