@@ -315,24 +315,23 @@ class LinkedListGenome(Genome):
 
         If te is not active, return None (and do not copy it).
         """
-        if te not in self.te_identities:
-            return None
+        if self.te_identities[te]:
 
-        te_range = self.te_identities[te]
-        start, end = te_range
+            te_range = self.te_identities[te]
+            start, end = te_range
 
-        copy_length = end - start
-        copy_pos = start + offset
+            copy_length = end - start
+            copy_pos = start + offset
 
-        if offset > 0:
+            if offset > 0:
+                return self.insert_te(copy_pos, copy_length)
+
+            if (start + offset) < 0:
+                copy_pos = self.length + start + offset
+                return self.insert_te(copy_pos, copy_length)
+
+            copy_pos = start + offset
             return self.insert_te(copy_pos, copy_length)
-
-        if (start + offset) < 0:
-            copy_pos = self.length + start + offset
-            return self.insert_te(copy_pos, copy_length)
-
-        copy_pos = start + offset
-        return self.insert_te(copy_pos, copy_length)
 
 
     def disable_te(self, te: int) -> None:
