@@ -154,14 +154,13 @@ class ListGenome(Genome):
 
         If te is not active, return None (and do not copy it).
         """
-        if te not in self.te_identities:
-            return None
+        if self.te_identities[te]:
 
-        te_range = self.te_identities[te] # Get positions for TE
-        start, end = te_range
+            te_range = self.te_identities[te] # Get positions for TE
+            start, end = te_range
 
-        copy_length = end - start # Length of copy
-        copy_pos = start + offset # Position of copy
+            copy_length = end - start # Length of copy
+            copy_pos = start + offset # Position of copy
 
         return self.insert_te(copy_pos, copy_length)
 
